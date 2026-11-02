@@ -1,0 +1,9 @@
+Package: com.nucleartweaks.notification-nuke
+Name: NotificationNuke
+Version: 1.0.0
+Architecture: iphoneos-arm64
+Depends: mobilesubstrate, firmware (>= 15.0)
+Maintainer: Spec
+Author: Spec
+Description: Per-app notification sound cooldowns + regex text filters. Group chats stop dinging every message; junk reminders blocked entirely. Lock screen keeps showing them.
+Section: Tweaks
