@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>cell</key>
+		<string>PSGroupSpecifier</string>
+		<key>footerText</key>
+		<string>Two tools, per app: a SOUND COOLDOWN mutes repeat notifications for a while after one makes noise (they still show on the lock screen — they just stop dinging), and REGEX FILTERS drop notifications whose text matches, entirely.</string>
+	</dict>
+	<dict>
+		<key>cell</key>
+		<string>PSSwitchCell</string>
+		<key>label</key>
+		<string>NotificationNuke enabled</string>
+		<key>default</key>
+		<true/>
+		<key>Get</key>
+		<string>readEnabled:</string>
+		<key>Set</key>
+		<string>writeEnabled:forSpecifier:</string>
+	</dict>
+	<dict>
+		<key>cell</key>
+		<string>PSSliderCell</string>
+		<key>label</key>
+		<string>Default cooldown (min)</string>
+		<key>min</key>
+		<real>0</real>
+		<key>max</key>
+		<real>60</real>
+		<key>step</key>
+		<integer>1</integer>
+		<key>ShowValue</key>
+		<true/>
+		<key>Get</key>
+		<string>readDefaultMin:</string>
+		<key>Set</key>
+		<string>writeDefaultMin:forSpecifier:</string>
+	</dict>
+	<dict>
+		<key>cell</key>
+		<string>PSGroupSpecifier</string>
+		<key>footerText</key>
+		<string>Default: 2 minutes. While a cooldown is running, that app's notifications are silent but still appear as normal. When it expires, the next one sounds and the timer restarts. 0 = never mute.</string>
+	</dict>
+	<dict>
+		<key>cell</key>
+		<string>PSLinkListCell</string>
+		<key>label</key>
+		<string>Apps</string>
+		<key>detail</key>
+		<string>NNAppListController</string>
+	</dict>
+	<dict>
+		<key>cell</key>
+		<string>PSGroupSpecifier</string>
+		<key>footerText</key>
+		<string>Per app: override the cooldown and add regex filters. A notification matching any filter is blocked completely — no banner, no lock screen, no badge. Filters are case-insensitive regex matched against title + subtitle + body, e.g. Get up|daily reminder. Changes apply instantly.</string>
+	</dict>
+</array>
+</plist>

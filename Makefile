@@ -20,6 +20,18 @@ NotificationNuke_LDFLAGS = -Wl,-undefined,dynamic_lookup
 
 include $(THEOS_MAKE_PATH)/tweak.mk
 
+# Settings pane (PreferenceLoader bundle). Private Preferences classes are
+# declared minimally in NNRootController.m and resolved at runtime — no SDK
+# stubs needed (dynamic_lookup), so iOS version drift can't break the build.
+BUNDLE_NAME = NotificationNukePrefs
+NotificationNukePrefs_FILES = NotificationNukePrefs/NNRootController.m
+NotificationNukePrefs_INSTALL_PATH = /Library/PreferenceBundles
+NotificationNukePrefs_CFLAGS = -fobjc-arc
+NotificationNukePrefs_LDFLAGS = -Wl,-undefined,dynamic_lookup
+NotificationNukePrefs_INFO_PLIST = NotificationNukePrefs/Info.plist
+
+include $(THEOS_MAKE_PATH)/bundle.mk
+
 # Sign the FINAL staged bytes (Apple Silicon SIGKILLs stale signatures). Staged
 # path is scheme-dependent (rootless=/var/jb/..., sim=rootful) → locate the dylib.
 ifneq ($(filter simulator%,$(TARGET)),)
@@ -31,5 +43,5 @@ else
 SIGN_CMD = $(shell command -v $(LDID) >/dev/null 2>&1 && echo "$(LDID) -S" || echo "codesign --force --sign -")
 endif
 after-stage::
-	@f=$$(find "$(THEOS_STAGING_DIR)" -name '$(TWEAK_NAME).dylib' -type f -print -quit); \
-	$(SIGN_CMD) "$$f" && echo "signed: $$f"
+	@find "$(THEOS_STAGING_DIR)" -name 'NotificationNuke*.dylib' -type f | while read -r f; do \
+	  $(SIGN_CMD) "$$f" && echo "signed: $$f"; done
